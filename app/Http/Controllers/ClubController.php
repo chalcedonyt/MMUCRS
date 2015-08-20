@@ -16,7 +16,9 @@ class ClubController extends Controller
      */
     public function index()
     {
-        return \App\Club::get();
+        return \App\Club::with('admins')
+        -> get()
+        -> toArray();
     }
 
     /**
@@ -48,7 +50,9 @@ class ClubController extends Controller
      */
     public function show($id)
     {
-        return \App\Club::find($id);
+        return \App\Club::with('admins')
+        -> find($id)
+        -> toArray();
     }
 
     /**

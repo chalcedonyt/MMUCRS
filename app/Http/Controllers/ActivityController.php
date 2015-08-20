@@ -16,7 +16,9 @@ class ActivityController extends Controller
      */
      public function index()
      {
-         return \App\Activity::get();
+         return \App\Activity::with('club','club.admins')
+         -> get()
+         -> toArray();
      }
 
     /**
@@ -48,7 +50,9 @@ class ActivityController extends Controller
      */
      public function show($id)
      {
-         return \App\Activity::find($id);
+         return \App\Activity::with('club','club.admins')
+         -> find($id)
+         -> toArray();
      }
 
     /**
