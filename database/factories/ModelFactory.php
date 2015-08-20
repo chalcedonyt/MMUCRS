@@ -19,3 +19,19 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Club::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company
+    ];
+});
+
+$factory->define(App\Activity::class, function (Faker\Generator $faker) {
+    $start = $faker -> dateTimeThisYear();
+    $end = $faker -> dateTimeThisYear();
+    return [
+        'name' => $faker-> sentence,
+        'starts_at' => $start,
+        'ends_at' => $end
+    ];
+});
