@@ -6,8 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ClubAndAdminTableSeeder' => $baseDir . '/database/seeds/ClubAndAdminTableSeeder.php',
     'CreateActivitiesTable' => $baseDir . '/database/migrations/2015_08_20_131243_create_activities_table.php',
-    'CreateClubActivityParticipantsTable' => $baseDir . '/database/migrations/2015_08_20_131331_create_club_activity_participants_table.php',
+    'CreateActivityParticipantsTable' => $baseDir . '/database/migrations/2015_08_20_131331_create_activity_participants_table.php',
     'CreateClubAdminsTable' => $baseDir . '/database/migrations/2015_08_20_131309_create_club_admins_table.php',
     'CreateClubMembersTable' => $baseDir . '/database/migrations/2015_08_20_131254_create_club_members_table.php',
     'CreateClubsTable' => $baseDir . '/database/migrations/2015_08_20_131225_create_clubs_table.php',
