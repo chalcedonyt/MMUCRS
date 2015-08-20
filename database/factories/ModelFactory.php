@@ -17,12 +17,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'gender' => $faker -> numberBetween(1,2),
+        'dob'   => $faker -> dateTimeBetween($startDate = '-30 years', $endDate = '-10 years') 
     ];
 });
 
 $factory->define(App\Club::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->company
+        'name' => 'The '.$faker->company.' Club'
     ];
 });
 
