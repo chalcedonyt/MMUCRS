@@ -14,6 +14,11 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
+            $table -> string('name');
+            $table -> timestamp('starts_at');
+            $table -> timestamp('ends_at');
+            $table -> integer('club_id') -> unsigned();
+            $table -> foreign('club_id') -> references('id') -> on('clubs') -> onDelete('cascade');
             $table->timestamps();
         });
     }
