@@ -148,6 +148,7 @@ return [
          * Other Service Providers
          */
         Cyvelnet\Laravel5Fractal\Laravel5FractalServiceProvider::class,
+        Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
 
     ],
 
@@ -200,7 +201,8 @@ return [
         /**
          * Other facades
          */
-         'Fractal' => Cyvelnet\Laravel5Fractal\Facades\Fractal::class
+         'Fractal' => Cyvelnet\Laravel5Fractal\Facades\Fractal::class,
+         'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
     ],
 
 ];

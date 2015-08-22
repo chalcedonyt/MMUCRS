@@ -3171,5 +3171,59 @@
             "fractal",
             "laravel5"
         ]
+    },
+    {
+        "name": "marcelgwerder/laravel-api-handler",
+        "version": "v0.5.3",
+        "version_normalized": "0.5.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/marcelgwerder/laravel-api-handler.git",
+            "reference": "d11a0239fe29addac635fc84e2ca4abe23dcddc0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/marcelgwerder/laravel-api-handler/zipball/d11a0239fe29addac635fc84e2ca4abe23dcddc0",
+            "reference": "d11a0239fe29addac635fc84e2ca4abe23dcddc0",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/database": "~5.0",
+            "illuminate/http": "~5.0",
+            "illuminate/support": "~5.0",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~4.5"
+        },
+        "time": "2015-06-18 14:41:01",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Marcelgwerder\\ApiHandler\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Marcel Gwerder",
+                "email": "info@marcelgwerder.ch"
+            }
+        ],
+        "description": "Package providing helper functions for a Laravel REST-API ",
+        "homepage": "http://github.com/marcelgwerder/laravel-api-handler",
+        "keywords": [
+            "api",
+            "laravel",
+            "mysql",
+            "parse",
+            "rest",
+            "url"
+        ]
     }
 ]
