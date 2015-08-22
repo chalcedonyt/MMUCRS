@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = \App\User::with('clubs') -> get();
+        $users = \ApiHandler::parseMultiple(new \App\User) -> getResult();
         return \Fractal::collection( $users, new \App\Transformers\UserTransformer) -> getArray();
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = \App\User::with('clubs') -> find($id);
+        $user = \ApiHandler::parseSingle(new \App\User, $id) -> getResult();
         return \Fractal::item( $user, new \App\Transformers\UserTransformer) -> getArray();
     }
 

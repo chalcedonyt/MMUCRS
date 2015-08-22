@@ -16,7 +16,7 @@ class ActivityController extends Controller
      */
      public function index()
      {
-         $activities =  \App\Activity::get();
+         $activities = \ApiHandler::parseMultiple(new \App\Activity) -> getResult();
          return \Fractal::collection( $activities, new \App\Transformers\ActivityTransformer) -> getArray();
      }
 
@@ -49,7 +49,7 @@ class ActivityController extends Controller
      */
      public function show($id)
      {
-         $activity = \App\Activity::find($id);
+         $activity = \ApiHandler::parseSingle(new \App\Activity, $id) -> getResult();
          return \Fractal::item( $activity, new \App\Transformers\ActivityTransformer) -> getArray();
 
      }

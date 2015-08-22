@@ -17,24 +17,7 @@ class ClubController extends Controller
      */
     public function index(Request $request)
     {
-        $query = \App\Club::with('admins');
-
-        /**
-         * Checks if there are ids to filter by, e.g. /club?id=1|2|3
-         */
-        if( $request -> has('id') ){
-            $ids = explode('|', $request -> input('id'));
-            $query -> whereIn( 'id', $ids );
-        }
-        /**
-         * Checks if there are names to filter by, e.g. /club?name=Abc
-         */
-        if( $request -> has('name') ){
-            $query -> where('name','LIKE','%'.$request -> input('name').'%');
-        }
-        $clubs = $query -> get();
-
-
+        $clubs = \ApiHandler::parseMultiple(new \App\Club) -> getResult();
         return \Fractal::collection( $clubs, new \App\Transformers\ClubTransformer) -> getArray();
     }
 
@@ -67,8 +50,7 @@ class ClubController extends Controller
      */
     public function show($id)
     {
-        $club = \App\Club::with('admins')
-        -> find($id);
+        $club = \ApiHandler::parseSingle(new \App\Club, $id) -> getResult();
         return \Fractal::item( $club, new \App\Transformers\ClubTransformer) -> getArray();
     }
 
