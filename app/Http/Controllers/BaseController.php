@@ -12,7 +12,7 @@ class BaseController extends Controller
     public function __construct(){
 
     }
-    
+
     /**
      * @param Model An eloquent model to use for queries
      */
@@ -61,7 +61,9 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $model = $this -> model -> create( $request -> input());
+        $item = $model -> fresh();
+        return $this -> show( $item -> id );
     }
 
     /**
@@ -96,7 +98,15 @@ class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = $this -> model -> find( $id );
+        if( !$item ){
+            throw new Exception('Nope could not find this');
+        }
+        /**
+         * This is subject to fillable properties
+         */
+        $item -> update( $request -> input());
+        return $this -> show( $id );
     }
 
     /**
@@ -107,6 +117,14 @@ class BaseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = $this -> model -> find( $id );
+        if( !$item ){
+            throw new Exception('Nope could not find this');
+        }
+        /**
+         * This is subject to fillable properties
+         */
+        $item -> delete();
+        return ['success' => 1];
     }
 }

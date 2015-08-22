@@ -45,7 +45,7 @@ class ClubController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        return parent::store($request);
     }
 
     /**
@@ -79,7 +79,7 @@ class ClubController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        return parent::update( $request, $id );
     }
 
     /**
@@ -90,6 +90,6 @@ class ClubController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        return parent::destroy($id);
     }
 }

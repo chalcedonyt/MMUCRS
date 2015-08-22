@@ -43,7 +43,7 @@ class UserController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        return parent::store($request);
     }
 
     /**
@@ -77,7 +77,7 @@ class UserController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        return parent::update( $request, $id );
     }
 
     /**
@@ -88,6 +88,6 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        return parent::destroy($id);
     }
 }

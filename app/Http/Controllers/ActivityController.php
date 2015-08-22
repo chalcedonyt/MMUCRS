@@ -44,7 +44,7 @@ class ActivityController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        return parent::store($request);
     }
 
     /**
@@ -78,7 +78,7 @@ class ActivityController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        return parent::update( $request, $id );
     }
 
     /**
@@ -89,6 +89,6 @@ class ActivityController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        return parent::destroy($id);
     }
 }
