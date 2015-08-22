@@ -16,13 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = \App\User::with('clubs','adminOfClubs') -> get();
-        foreach( $users as $user ){
-            unset( $user -> email );
-            unset( $user -> dob );
-            unset( $user -> gender );
-        }
-        return $users;
+        $users = \App\User::with('clubs') -> get();
+        return \Fractal::collection( $users, new \App\Transformers\UserTransformer) -> getArray();
     }
 
     /**
@@ -54,11 +49,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = \App\User::with('clubs','adminOfClubs') -> find($id);
-        unset( $user -> email );
-        unset( $user -> dob );
-        unset( $user -> gender );
-        return $user;
+        $user = \App\User::with('clubs') -> find($id);
+        return \Fractal::item( $user, new \App\Transformers\UserTransformer) -> getArray();
     }
 
     /**

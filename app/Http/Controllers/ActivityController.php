@@ -16,15 +16,8 @@ class ActivityController extends Controller
      */
      public function index()
      {
-         $activities =  \App\Activity::with('club','club.admins') -> get();
-         foreach( $activities as $activity ){
-             foreach( $activity -> club -> admins as $admin ){
-                 unset( $admin -> gender);
-                 unset( $admin -> dob);
-                 unset( $admin -> pivot);
-             }
-         }
-         return $activities;
+         $activities =  \App\Activity::get();
+         return \Fractal::collection( $activities, new \App\Transformers\ActivityTransformer) -> getArray();
      }
 
     /**
@@ -56,15 +49,8 @@ class ActivityController extends Controller
      */
      public function show($id)
      {
-         $activity = \App\Activity::with('club','club.admins')
-         -> find($id);
-     
-         foreach( $activity -> club -> admins as $admin ){
-             unset( $admin -> gender);
-             unset( $admin -> dob);
-             unset( $admin -> pivot);
-         }
-         return $activity;
+         $activity = \App\Activity::find($id);
+         return \Fractal::item( $activity, new \App\Transformers\ActivityTransformer) -> getArray();
 
      }
 

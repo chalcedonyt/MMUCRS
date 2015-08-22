@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 class ClubController extends Controller
 {
     /**
@@ -17,14 +18,7 @@ class ClubController extends Controller
     public function index()
     {
         $clubs = \App\Club::with('admins') -> get();
-        foreach( $clubs as $club ){
-            foreach( $club -> admins as $admin ){
-                unset( $admin -> gender);
-                unset( $admin -> dob);
-                unset( $admin -> pivot);
-            }
-        }
-        return $clubs;
+        return \Fractal::collection( $clubs, new \App\Transformers\ClubTransformer) -> getArray();
     }
 
     /**
@@ -58,13 +52,7 @@ class ClubController extends Controller
     {
         $club = \App\Club::with('admins')
         -> find($id);
-
-        foreach( $club -> admins as $admin ){
-            unset( $admin -> gender);
-            unset( $admin -> dob);
-            unset( $admin -> pivot);
-        }
-        return $club;
+        return \Fractal::item( $club, new \App\Transformers\ClubTransformer) -> getArray();
     }
 
     /**
