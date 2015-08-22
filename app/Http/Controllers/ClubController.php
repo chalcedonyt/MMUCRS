@@ -15,6 +15,7 @@ class ClubController extends BaseController
         parent::__construct();
         $this -> setModel(new \App\Club);
         $this -> setTransformer( new \App\Transformers\ClubTransformer );
+        $this -> setRequestValidator( new \App\Http\Requests\ClubRequest );
     }
 
     /**

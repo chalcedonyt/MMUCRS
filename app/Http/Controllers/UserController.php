@@ -13,6 +13,7 @@ class UserController extends BaseController
         parent::__construct();
         $this -> setModel(new \App\User);
         $this -> setTransformer( new \App\Transformers\UserTransformer );
+        $this -> setRequestValidator( new \App\Http\Requests\UserRequest );
     }
 
     /**
@@ -43,6 +44,8 @@ class UserController extends BaseController
      */
     public function store(Request $request)
     {
+        $request -> merge(['password' => '']);
+        
         if( $request -> has('raw_password') ){
             $request -> merge([
                 'password' => \Hash::make( $request -> input('raw_password'))

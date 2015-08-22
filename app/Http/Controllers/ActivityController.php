@@ -14,6 +14,7 @@ class ActivityController extends BaseController
         parent::__construct();
         $this -> setModel(new \App\Activity);
         $this -> setTransformer( new \App\Transformers\ActivityTransformer );
+        $this -> setRequestValidator( new \App\Http\Requests\ActivityRequest );
     }
 
     /**

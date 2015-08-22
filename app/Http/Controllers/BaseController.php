@@ -23,6 +23,10 @@ class BaseController extends Controller
      */
     protected $transformer;
 
+    /**
+     * @param Request a validator for the request.
+     */
+    protected $requestValidator;
 
     protected function setModel($model){
         $this -> model = $model;
@@ -30,6 +34,10 @@ class BaseController extends Controller
 
     protected function setTransformer( $transformer ){
         $this -> transformer = $transformer;
+    }
+
+    protected function setRequestValidator( $requestValidator ){
+        $this -> requestValidator = $requestValidator;
     }
 
     /**
@@ -61,6 +69,14 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
+        if( $this -> requestValidator ){
+            $validator = \Validator::make( $request -> input(), $this -> requestValidator -> rules(), $this -> requestValidator ->messages() );
+            if( $validator -> fails() ){
+                $errors = $validator -> errors();
+                throw new \Exception('Validation failed! '.json_encode(  $errors -> all() ) );
+            }
+        }
+
         $model = $this -> model -> create( $request -> input());
         $item = $model -> fresh();
         return $this -> show( $item -> id );
@@ -100,7 +116,7 @@ class BaseController extends Controller
     {
         $item = $this -> model -> find( $id );
         if( !$item ){
-            throw new Exception('Nope could not find this');
+            throw new \Exception('Nope could not find this');
         }
         /**
          * This is subject to fillable properties
@@ -119,7 +135,7 @@ class BaseController extends Controller
     {
         $item = $this -> model -> find( $id );
         if( !$item ){
-            throw new Exception('Nope could not find this');
+            throw new \Exception('Nope could not find this');
         }
         /**
          * This is subject to fillable properties
