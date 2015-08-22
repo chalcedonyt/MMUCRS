@@ -43,6 +43,11 @@ class UserController extends BaseController
      */
     public function store(Request $request)
     {
+        if( $request -> has('raw_password') ){
+            $request -> merge([
+                'password' => \Hash::make( $request -> input('raw_password'))
+            ]);
+        }
         return parent::store($request);
     }
 
