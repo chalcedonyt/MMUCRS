@@ -15,9 +15,26 @@ class ClubController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clubs = \App\Club::with('admins') -> get();
+        $query = \App\Club::with('admins');
+
+        /**
+         * Checks if there are ids to filter by, e.g. /club?id=1|2|3
+         */
+        if( $request -> has('id') ){
+            $ids = explode('|', $request -> input('id'));
+            $query -> whereIn( 'id', $ids );
+        }
+        /**
+         * Checks if there are names to filter by, e.g. /club?name=Abc
+         */
+        if( $request -> has('name') ){
+            $query -> where('name','LIKE','%'.$request -> input('name').'%');
+        }
+        $clubs = $query -> get();
+
+
         return \Fractal::collection( $clubs, new \App\Transformers\ClubTransformer) -> getArray();
     }
 
