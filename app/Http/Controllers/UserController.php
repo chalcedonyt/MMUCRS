@@ -16,9 +16,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return \App\User::with('clubs','adminOfClubs')
-        -> get()
-        -> toArray();
+        $users = \App\User::with('clubs','adminOfClubs') -> get();
+        foreach( $users as $user ){
+            unset( $user -> email );
+            unset( $user -> dob );
+            unset( $user -> gender );
+        }
+        return $users;
     }
 
     /**
@@ -50,7 +54,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return \App\User::with('clubs','adminOfClubs') -> find($id);
+        $user = \App\User::with('clubs','adminOfClubs') -> find($id);
+        unset( $user -> email );
+        unset( $user -> dob );
+        unset( $user -> gender );
+        return $user;
     }
 
     /**

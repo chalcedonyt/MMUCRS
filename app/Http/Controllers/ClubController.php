@@ -16,9 +16,15 @@ class ClubController extends Controller
      */
     public function index()
     {
-        return \App\Club::with('admins')
-        -> get()
-        -> toArray();
+        $clubs = \App\Club::with('admins') -> get();
+        foreach( $clubs as $club ){
+            foreach( $club -> admins as $admin ){
+                unset( $admin -> gender);
+                unset( $admin -> dob);
+                unset( $admin -> pivot);
+            }
+        }
+        return $clubs;
     }
 
     /**
@@ -50,9 +56,15 @@ class ClubController extends Controller
      */
     public function show($id)
     {
-        return \App\Club::with('admins')
-        -> find($id)
-        -> toArray();
+        $club = \App\Club::with('admins')
+        -> find($id);
+
+        foreach( $club -> admins as $admin ){
+            unset( $admin -> gender);
+            unset( $admin -> dob);
+            unset( $admin -> pivot);
+        }
+        return $club;
     }
 
     /**

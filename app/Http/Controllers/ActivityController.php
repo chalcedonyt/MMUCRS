@@ -16,9 +16,15 @@ class ActivityController extends Controller
      */
      public function index()
      {
-         return \App\Activity::with('club','club.admins')
-         -> get()
-         -> toArray();
+         $activities =  \App\Activity::with('club','club.admins') -> get();
+         foreach( $activities as $activity ){
+             foreach( $activity -> club -> admins as $admin ){
+                 unset( $admin -> gender);
+                 unset( $admin -> dob);
+                 unset( $admin -> pivot);
+             }
+         }
+         return $activities;
      }
 
     /**
@@ -50,9 +56,16 @@ class ActivityController extends Controller
      */
      public function show($id)
      {
-         return \App\Activity::with('club','club.admins')
-         -> find($id)
-         -> toArray();
+         $activity = \App\Activity::with('club','club.admins')
+         -> find($id);
+     
+         foreach( $activity -> club -> admins as $admin ){
+             unset( $admin -> gender);
+             unset( $admin -> dob);
+             unset( $admin -> pivot);
+         }
+         return $activity;
+
      }
 
     /**

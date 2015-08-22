@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddColumnsToUserAndActivity' => $baseDir . '/database/migrations/2015_08_20_183810_add_columns_to_user_and_activity.php',
     'ClubAndAdminTableSeeder' => $baseDir . '/database/seeds/ClubAndAdminTableSeeder.php',
     'CreateActivitiesTable' => $baseDir . '/database/migrations/2015_08_20_131243_create_activities_table.php',
     'CreateActivityParticipantsTable' => $baseDir . '/database/migrations/2015_08_20_131331_create_activity_participants_table.php',
