@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    public function __construct(){
+        parent::__construct();
+        $this -> setModel(new \App\User);
+        $this -> setTransformer( new \App\Transformers\UserTransformer );
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = \ApiHandler::parseMultiple(new \App\User) -> getResult();
-        return \Fractal::collection( $users, new \App\Transformers\UserTransformer) -> getArray();
+        return parent::index();
     }
 
     /**
@@ -49,8 +54,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = \ApiHandler::parseSingle(new \App\User, $id) -> getResult();
-        return \Fractal::item( $user, new \App\Transformers\UserTransformer) -> getArray();
+        return parent::show($id);
     }
 
     /**

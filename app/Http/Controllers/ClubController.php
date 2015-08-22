@@ -5,20 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 
 
-class ClubController extends Controller
+class ClubController extends BaseController
 {
+
+    public function __construct(){
+        parent::__construct();
+        $this -> setModel(new \App\Club);
+        $this -> setTransformer( new \App\Transformers\ClubTransformer );
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $clubs = \ApiHandler::parseMultiple(new \App\Club) -> getResult();
-        return \Fractal::collection( $clubs, new \App\Transformers\ClubTransformer) -> getArray();
+        return parent::index();
     }
 
     /**
@@ -50,8 +56,7 @@ class ClubController extends Controller
      */
     public function show($id)
     {
-        $club = \ApiHandler::parseSingle(new \App\Club, $id) -> getResult();
-        return \Fractal::item( $club, new \App\Transformers\ClubTransformer) -> getArray();
+        return parent::show($id);
     }
 
     /**

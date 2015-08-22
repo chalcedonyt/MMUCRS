@@ -5,15 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 
-class ActivityController extends BaseController
+class BaseController extends Controller
 {
-
     public function __construct(){
-        parent::__construct();
-        $this -> setModel(new \App\Activity);
-        $this -> setTransformer( new \App\Transformers\ActivityTransformer );
+
+    }
+    
+    /**
+     * @param Model An eloquent model to use for queries
+     */
+    protected $model;
+
+    /**
+     * @param Transformer a Fractal transformer to transform output
+     */
+    protected $transformer;
+
+
+    protected function setModel($model){
+        $this -> model = $model;
+    }
+
+    protected function setTransformer( $transformer ){
+        $this -> transformer = $transformer;
     }
 
     /**
@@ -23,7 +39,8 @@ class ActivityController extends BaseController
      */
     public function index()
     {
-        return parent::index();
+        $items = \ApiHandler::parseMultiple( $this -> model ) -> getResult();
+        return \Fractal::collection( $items, $this -> transformer ) -> getArray();
     }
 
     /**
@@ -55,7 +72,8 @@ class ActivityController extends BaseController
      */
     public function show($id)
     {
-        return parent::show($id);
+        $item = \ApiHandler::parseSingle( $this -> model, $id ) -> getResult();
+        return \Fractal::item( $item, $this -> transformer ) -> getArray();
     }
 
     /**
