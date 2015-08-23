@@ -149,6 +149,7 @@ return [
          */
         Cyvelnet\Laravel5Fractal\Laravel5FractalServiceProvider::class,
         Marcelgwerder\ApiHandler\ApiHandlerServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
     ],
 
@@ -203,6 +204,7 @@ return [
          */
          'Fractal' => Cyvelnet\Laravel5Fractal\Facades\Fractal::class,
          'ApiHandler' => Marcelgwerder\ApiHandler\Facades\ApiHandler::class,
+         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
     ],
 
 ];
