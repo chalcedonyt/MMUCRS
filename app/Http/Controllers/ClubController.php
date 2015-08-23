@@ -18,6 +18,54 @@ class ClubController extends BaseController
         $this -> setRequestValidator( new \App\Http\Requests\ClubRequest );
     }
 
+
+    /**
+     * Removes an admin from a Club
+     */
+     public function destroyAdmin( Request $request )
+     {
+         $club = \App\Club::find($request -> input('club_id'));
+         $admin = \App\User::find($request -> input('user_id'));
+         $club -> admins() -> detach($admin -> id);
+         return \Fractal::collection( $club -> admins, new \App\Transformers\AdminTransformer ) -> getArray();
+     }
+
+     /**
+      * Adds a new admin to the Club
+      */
+     public function storeAdmin(Request $request){
+         $this -> setRequestValidator( new \App\Http\Requests\StoreClubAdminRequest );
+         $this -> validateRequest($request);
+
+         $club = \App\Club::find($request -> input('club_id'));
+         $admin = \App\User::find($request -> input('user_id'));
+         $club -> admins() -> attach($admin -> id);
+         return \Fractal::collection( $club -> admins, new \App\Transformers\AdminTransformer ) -> getArray();
+     }
+
+    /**
+     * Removes a member from a Club
+     */
+    public function destroyMember(Request $request ){
+        $club = \App\Club::find($request -> input('club_id'));
+        $member = \App\User::find($request -> input('user_id'));
+        $club -> members() -> detach($member -> id);
+        return \Fractal::collection( $club -> members, new \App\Transformers\UserTransformer ) -> getArray();
+    }
+
+    /**
+     * Adds a new member to the Club
+     */
+    public function storeMember(Request $request){
+        $this -> setRequestValidator( new \App\Http\Requests\StoreClubMemberRequest );
+        $this -> validateRequest($request);
+
+        $club = \App\Club::find($request -> input('club_id'));
+        $member = \App\User::find($request -> input('user_id'));
+        $club -> members() -> attach($member -> id);
+        return \Fractal::collection( $club -> members, new \App\Transformers\UserTransformer ) -> getArray();
+    }
+
     /**
      * Display a listing of the resource.
      *

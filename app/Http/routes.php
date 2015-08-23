@@ -16,8 +16,12 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'v1'], function(){
+    Route::post('club/member','ClubController@storeMember');
+    Route::post('club/admin','ClubController@storeAdmin');
+    Route::delete('club/member','ClubController@destroyMember');
+    Route::delete('club/admin','ClubController@destroyAdmin');
+
     Route::resource('club', 'ClubController');
     Route::resource('activity', 'ActivityController');
-    Route::resource('user', 'UserController');
-
+    Route::resource('user', 'UserController');    
 });

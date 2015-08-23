@@ -40,6 +40,15 @@ class BaseController extends Controller
         $this -> requestValidator = $requestValidator;
     }
 
+    protected function validateRequest( Request $request ){
+        if( $this -> requestValidator ){
+            $validator = \Validator::make( $request -> input(), $this -> requestValidator -> rules(), $this -> requestValidator ->messages() );
+            if( $validator -> fails() ){
+                $errors = $validator -> errors();
+                throw new \Exception('Validation failed! '.json_encode(  $errors -> all() ) );
+            }
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -69,14 +78,7 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
-        if( $this -> requestValidator ){
-            $validator = \Validator::make( $request -> input(), $this -> requestValidator -> rules(), $this -> requestValidator ->messages() );
-            if( $validator -> fails() ){
-                $errors = $validator -> errors();
-                throw new \Exception('Validation failed! '.json_encode(  $errors -> all() ) );
-            }
-        }
-
+        $this -> validateRequest($request);
         $model = $this -> model -> create( $request -> input());
         $item = $model -> fresh();
         return $this -> show( $item -> id );
