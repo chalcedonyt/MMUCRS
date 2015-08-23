@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1'], function(){
     Route::resource('activity', 'ActivityController');
     Route::resource('user', 'UserController');
 
-    Route::group(['middleware' => 'auth.api'], function(){
+    Route::group(['middleware' => ['auth.api','clubadmin']], function(){
         Route::post('club/member','ClubController@storeMember');
         Route::post('club/admin','ClubController@storeAdmin');
         Route::delete('club/member','ClubController@destroyMember');
